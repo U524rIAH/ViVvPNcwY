@@ -23,7 +23,6 @@ identifier_name:
     warning: 2
     error: 2
   validates_start_with_lowercase: false
-  allowed_symbols:
     - '_'
   excluded:
     - 'x'
