@@ -1,5 +1,4 @@
 src/dashboard/dist/*
-src/dashboard/node_modules/*
 src/api/node_modules/*
 src/dashboard-client/node_modules/*
 src/dashboard-client/dist/*
