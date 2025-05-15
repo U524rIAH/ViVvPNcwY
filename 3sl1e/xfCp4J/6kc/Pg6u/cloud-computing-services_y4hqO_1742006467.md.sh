@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # **addClient.sh** is a tool to deploy an environment to manage OpenStack cloud computing service.
-
 # Hily.Hoo@gmail.com (Kayven)
 # Learn more and get the most recent version at http://code.google.com/p/onestack/
 
