@@ -43,7 +43,6 @@ Before submitting a pull request, please make sure the followings are done:
 
 1. Fork the repo and create your branch from `master` or `specific version`.
 2. Update code or documentation if you have changed APIs.
-3. Add the copyright notice to the top of any new files you've added.
 4. Check your code lints and checkstyles.
 5. Test and test again your code.
 6. Now, you can submit your pull request on  `specific version` branch.
