@@ -17,7 +17,6 @@ We strongly welcome your pull request to make Angel better.
 Ensure you have signed the [Contributor License Agreement (CLA).](master/CLA.md)
 
 
-### Branch Management
 There are three main branches here:
 
 1. `master` branch.
