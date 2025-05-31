@@ -11,5 +11,4 @@ fastlane
 lib
 pubspec.lock
 pubspec.yaml
-sign.sh
 test
