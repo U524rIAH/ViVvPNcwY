@@ -1,0 +1,29 @@
+{
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "docs",
+        "src/**/*.spec.ts",
+    ],
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "ESNext",
+        "declaration": true,
+        "outDir": "dist",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "types": [
+            "@types/jest",
+            "@types/node"
+        ]
+    },
+    "typedocOptions": {
+        "entryPoints": ["src/index.ts"],
+        "out": "docs",
+        "excludePrivate": true
+    }
+}
