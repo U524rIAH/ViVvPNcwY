@@ -13,7 +13,6 @@ spec:
 
     It provides an easy method to perform several common data replication
     workflows without directly creating/manipulating VolSync's CRs.
-  platforms:
   - selector:
       matchLabels:
         os: linux
