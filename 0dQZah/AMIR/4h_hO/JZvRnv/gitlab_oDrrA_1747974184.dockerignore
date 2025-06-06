@@ -4,7 +4,6 @@ analysis_options.yaml
 android
 assets
 build
-build.sh
 data
 docker
 fastlane
