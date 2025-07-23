@@ -1,0 +1,65 @@
+name: NexaCLI on Linux
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build-cli:
+    name: ${{ matrix.os }} - ${{ matrix.backend }}
+    runs-on: sdk-linux-16-core
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu_22.04]
+        backend: [llama-cpp-cpu, llama-cpp-cuda]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Detect Tag Version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+
+      - name: Detect Commit Hash
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "VERSION=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.24.3
+          cache-dependency-path: runner/go.sum
+
+      - name: Build Nexa Cli
+        run: make build
+
+      - name: Download runtime
+        run: |
+          make download BRIDGE_BACKEND=${{ matrix.backend }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "nexa-cli_${{ matrix.os }}_${{ matrix.backend }}"
+          path: build
+          include-hidden-files: true
+
+      - name: Package Release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          tar -czf "nexa-cli_${{ matrix.os }}_${{ matrix.backend }}_${{ env.VERSION }}.tar.gz" -C build .
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          repository: ${{ env.RELEASE_REPO }}
+          files: "nexa-cli_${{ matrix.os }}_${{ matrix.backend }}_${{ env.VERSION }}.tar.gz"
+          tag_name: ${{ env.VERSION }}
+        env:
+          RELEASE_REPO: zhiyuan8/homebrew-go-release
+          GITHUB_TOKEN: ${{ secrets.ZACK_ACCESS_TOKEN }}
